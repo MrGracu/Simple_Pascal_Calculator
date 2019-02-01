@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls, LCLType;
 
 type
   tabStringow = array[0..2] of string;
@@ -39,6 +39,7 @@ type
     Button9: TButton;
     Edit1: TEdit;
     Edit2: TEdit;
+    Edit3: TEdit;
     procedure Button10Click(Sender: TObject);
     procedure Button11Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
@@ -64,6 +65,7 @@ type
     procedure Button7Click(Sender: TObject);
     procedure Button8Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
 
   public
@@ -91,6 +93,11 @@ begin
   end;
 
   liczbaSpacji := ilosc;
+end;
+
+procedure removeFocusControl();
+begin
+  Form1.ActiveControl:=Form1.Edit3;
 end;
 
 procedure splitujString(tekst:string; var tab:tabStringow);
@@ -212,6 +219,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button22Click(Sender: TObject);
@@ -232,6 +240,7 @@ begin
       if(Length(tabStr[0]) > 0) then Edit1.Text := tabStr[0] + ',' else Edit1.Text := '0,';
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button23Click(Sender: TObject);
@@ -271,6 +280,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button24Click(Sender: TObject);
@@ -295,6 +305,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button25Click(Sender: TObject);
@@ -323,8 +334,9 @@ begin
       end;
       tekst := '';
       for wartosc := Length(wynik) downto 1 do tekst := tekst + wynik[wartosc];
+      if(Length(tekst) = 0) then tekst := '0';
       ShowMessage(tekst);
-    end else ShowMessage('Liczba musi być naturalna!');
+    end else ShowMessage('Liczba musi być całkowita!');
   end else
   begin
     splitujString(Edit1.Text, tabStr);
@@ -340,11 +352,12 @@ begin
           wartosc := wartosc div 16;
         end;
         tabStr[2] := '';
-        for wartosc := Length(wynik) downto 1 do tetabStr[2] := tabStr[2] + wynik[wartosc];
+        for wartosc := Length(wynik) downto 1 do tabStr[2] := tabStr[2] + wynik[wartosc];
         ShowMessage(tabStr[2]);
       end else ShowMessage('Liczba musi być naturalna!');
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -366,12 +379,14 @@ begin
       Edit1.Text := tekst;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   Edit1.Text := '0';
   Edit2.Text := '';
+  removeFocusControl();
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
@@ -415,6 +430,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -465,6 +481,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button6Click(Sender: TObject);
@@ -476,6 +493,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 7' else Edit1.Text := Edit1.Text + '7';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button7Click(Sender: TObject);
@@ -487,6 +505,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 8' else Edit1.Text := Edit1.Text + '8';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button8Click(Sender: TObject);
@@ -498,6 +517,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 9' else Edit1.Text := Edit1.Text + '9';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button9Click(Sender: TObject);
@@ -537,6 +557,45 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
+end;
+
+procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
+  );
+var
+  Send:TObject;
+begin
+  if(Key = VK_BACK) then Button1Click(Send)
+  else if(Key = VK_DELETE) then Button2Click(Send)
+  else if(Key = VK_ESCAPE) then Button3Click(Send)
+  else if((Shift = [ssShift]) and (Key = VK_2)) then Button5Click(Send)
+  else if((Shift = [ssShift]) and (Key = VK_6)) then Button20Click(Send)
+  else if(((Shift = [ssShift]) and (Key = VK_8)) or (Key = VK_MULTIPLY)) then Button14Click(Send)
+  else if((Key = VK_OEM_2) or (Key = VK_DIVIDE)) then Button9Click(Send)
+  else if((Shift = [ssShift]) and (Key = VK_5)) then Button10Click(Send)
+  else if((Key = VK_SUBTRACT) or (Key = VK_OEM_MINUS)) then Button19Click(Send)
+  else if(Key = VK_R) then Button15Click(Send)
+  else if(Key = VK_H) then Button25Click(Send)
+  else if(Key = VK_F9) then Button4Click(Send)
+  else if((Key = VK_OEM_COMMA) or (Key = VK_OEM_PERIOD) or (Key = VK_DECIMAL)) then Button22Click(Send)
+  else if((Key = VK_ADD) or ((Shift = [ssShift]) and (Key = VK_OEM_PLUS))) then Button23Click(Send)
+  else if((Key = VK_OEM_PLUS) or (Key = VK_RETURN)) then
+  begin
+    Button24Click(Send);
+    Key:=0;
+  end
+  else if((Key = VK_7) or (Key = VK_NUMPAD7)) then Button6Click(Send)
+  else if((Key = VK_8) or (Key = VK_NUMPAD8)) then Button7Click(Send)
+  else if((Key = VK_9) or (Key = VK_NUMPAD9)) then Button8Click(Send)
+  else if((Key = VK_4) or (Key = VK_NUMPAD4)) then Button11Click(Send)
+  else if((Key = VK_5) or (Key = VK_NUMPAD5)) then Button12Click(Send)
+  else if((Key = VK_6) or (Key = VK_NUMPAD6)) then Button13Click(Send)
+  else if((Key = VK_1) or (Key = VK_NUMPAD1)) then Button16Click(Send)
+  else if((Key = VK_2) or (Key = VK_NUMPAD2)) then Button17Click(Send)
+  else if((Key = VK_3) or (Key = VK_NUMPAD3)) then Button18Click(Send)
+  else if((Key = VK_0) or (Key = VK_NUMPAD0)) then Button21Click(Send)
+  else if(Key = VK_F1) then Application.MessageBox('Autor: Gracjan Mika ( https://gmika.pl )' + sLineBreak + sLineBreak + 'Skróty klawiszowe:' + sLineBreak + 'Backspace - Usuń pojedyńczy znak' + sLineBreak + 'Del - Usuń ciąg znaków do spacji' + sLineBreak + 'Esc - Wyczyść' + sLineBreak + 'F9 - Zamień liczbę na ujemną/dodatnią' + sLineBreak + '@ - Pierwiastek kwadratowy'+ sLineBreak + 'R - Podzielenie 1/<liczba>' + sLineBreak + 'H - Podanie liczby w postaci heksadecymanlej' + sLineBreak + 'Pozostałe elementy posiadają takie skróty jakie są na przyciskach' + sLineBreak + sLineBreak + 'Copyright © by Gracjan Mika.',' O programie: Easy Calculator',MB_ICONINFORMATION);
+  Form1.ActiveControl:=Edit3;
 end;
 
 procedure TForm1.Button16Click(Sender: TObject);
@@ -548,6 +607,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 1' else Edit1.Text := Edit1.Text + '1';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button11Click(Sender: TObject);
@@ -559,6 +619,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 4' else Edit1.Text := Edit1.Text + '4';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button10Click(Sender: TObject);
@@ -579,6 +640,7 @@ begin
       Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' ' + tabStr[2];
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button12Click(Sender: TObject);
@@ -590,6 +652,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 5' else Edit1.Text := Edit1.Text + '5';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button13Click(Sender: TObject);
@@ -601,6 +664,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 6' else Edit1.Text := Edit1.Text + '6';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button14Click(Sender: TObject);
@@ -640,6 +704,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button15Click(Sender: TObject);
@@ -684,6 +749,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button17Click(Sender: TObject);
@@ -695,6 +761,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 2' else Edit1.Text := Edit1.Text + '2';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button18Click(Sender: TObject);
@@ -706,6 +773,7 @@ begin
     splitujString(Edit1.Text, tabStr);
     if(tabStr[2] = '0') then Edit1.Text := tabStr[0] + ' ' + tabStr[1] + ' 3' else Edit1.Text := Edit1.Text + '3';
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button19Click(Sender: TObject);
@@ -744,6 +812,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -782,6 +851,7 @@ begin
     end;
     Edit1.Text := tekst;
   end;
+  removeFocusControl();
 end;
 
 procedure TForm1.Button20Click(Sender: TObject);
@@ -821,6 +891,7 @@ begin
       end;
     end;
   end;
+  removeFocusControl();
 end;
 
 end.
