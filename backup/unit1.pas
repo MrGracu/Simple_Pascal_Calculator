@@ -594,7 +594,7 @@ begin
   else if((Key = VK_2) or (Key = VK_NUMPAD2)) then Button17Click(Send)
   else if((Key = VK_3) or (Key = VK_NUMPAD3)) then Button18Click(Send)
   else if((Key = VK_0) or (Key = VK_NUMPAD0)) then Button21Click(Send)
-  else if(Key = VK_F1) then Application.MessageBox('Autor: Gracjan Mika ( https://gmika.pl )' + sLineBreak + sLineBreak + 'Skróty klawiszowe:' + sLineBreak + 'Backspace - Usuń pojedyńczy znak' + sLineBreak + 'Del - Usuń ciąg znaków do spacji' + sLineBreak + 'Esc - Wyczyść' + sLineBreak + 'F9 - Zamień liczbę na ujemną/dodatnią' + sLineBreak + '@ - Pierwiastek kwadratowy'+ sLineBreak + 'R - Podzielenie 1/<liczba>' + sLineBreak + 'H - Podanie liczby w postaci heksadecymanlej' + sLineBreak + 'Pozostałe elementy posiadają takie skróty jakie są na przyciskach' + sLineBreak + sLineBreak + 'Copyright © by Gracjan Mika.',' O programie: Easy Calculator',MB_ICONINFORMATION);
+  else if(Key = VK_F1) then Application.MessageBox('Autor: Gracjan Mika ( https://gmika.pl )' + sLineBreak + sLineBreak + 'Skróty klawiszowe:' + sLineBreak + 'Backspace - Usuń pojedyńczy znak' + sLineBreak + 'Del - Usuń ciąg znaków do spacji' + sLineBreak + 'Esc - Wyczyść' + sLineBreak + 'F9 - Zamień liczbę na ujemną/dodatnią' + sLineBreak + '@ - Pierwiastek kwadratowy'+ sLineBreak + 'R - Podzielenie 1/<liczba>' + sLineBreak + 'H - Podanie liczby w postaci heksadecymanlej' + sLineBreak + 'Pozostałe elementy posiadają takie skróty jakie są na przyciskach.' + sLineBreak + sLineBreak + 'Copyright © by Gracjan Mika.',' O programie: Easy Calculator',MB_ICONINFORMATION);
   Form1.ActiveControl:=Edit3;
 end;
 
