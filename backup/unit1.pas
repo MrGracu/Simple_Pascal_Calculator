@@ -1,3 +1,6 @@
+{ MADE BY GRACJAN MIKA }
+{ COPYRIGHT (C) BY GRACJAN MIKA }
+
 unit Unit1;
 
 {$mode objfpc}{$H+}

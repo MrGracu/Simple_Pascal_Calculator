@@ -1,3 +1,5 @@
+{ MADE BY GRACJAN MIKA ( https://www.gmika.pl ) }
+
 unit Unit1;
 
 {$mode objfpc}{$H+}

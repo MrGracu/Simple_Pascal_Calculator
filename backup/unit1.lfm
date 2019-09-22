@@ -6,7 +6,7 @@ object Form1: TForm1
   ActiveControl = Edit3
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
-  Caption = ' EasyCalculator by Gracjan Mika'
+  Caption = ' EasyCalculator'
   ClientHeight = 263
   ClientWidth = 228
   Icon.Data = {
